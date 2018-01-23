@@ -38,14 +38,14 @@ def test_demotest():
 Running the test with ``` -m 'demomarker' ``` will only execute tests which have the ```@pytest.mark.demomarker```-Marker
 
 #### Skipping Test
-Skippes test and shows reason when using the verbose ```-v``` option for the output:
+Skipps test and shows reason when using the verbose ```-v``` option for the output:
 ```python
 @pytest.mark.skip(reason='This is the reason for skipping this test')
 def test_demotest():
   assert True
 ```
 
-Skippes test if some **requirement** is met (like checking the version of the class, V1.0 does not support the tested feature but V1.1 does):
+Skipps test if some **requirement** is met (like checking the version of the class, V1.0 does not support the tested feature but V1.1 does):
 ```python
 @pytest.mark.skipif(someClass.__version__<'1.0')
 def test_demotest():
