@@ -1,5 +1,5 @@
 # PyTest_Cheatsheet
-Most important PyTest knowledge at a glance
+**Most important PyTest knowledge at a glance**
 
 ### Basic Testing
 ```python
@@ -45,7 +45,7 @@ def test_demotest():
   assert True
 ```
 
-Skippes test if some requirement is met (like checking the version of the class, V1.0 does not support the tested feature but V1.1 does):
+Skippes test if some **requirement** is met (like checking the version of the class, V1.0 does not support the tested feature but V1.1 does):
 ```python
 @pytest.mark.skipif(someClass.__version__<'1.0')
 def test_demotest():
@@ -58,7 +58,7 @@ def test_demotest():
 def test_demotest():
   assert False
 ```
-Expect failure until some requirement is met (like checking the version of the class):
+Expect failure until some **requirement** is met (like checking the version of the class):
 ```python
 @pytest.mark.xfail(someClass.__version__<'1.0',reason='not suported until V1.1')
 def test_demotest():
@@ -66,7 +66,7 @@ def test_demotest():
 ```
 
 #### Parameterized Tests
-Using a list of strings to run a test multiple times with different parameters:
+Using a list of strings to **run a test multiple times with different parameters**:
 ```python
 @pytest.mark.parametrize('strings',['string1','string2'])
 def test_demotest(strings):
@@ -82,7 +82,7 @@ def test_demotest(city,code):
 ```
 
 #### Fixtures
-Fixtures are bits of code that run before and after the tests. They can be used to prepare sets of data which are needed by multiple tests or to initialize and close a database connection:
+Fixtures are bits of code that run **before** and **after** the tests. They can be used to **prepare sets of data** which are needed by multiple tests or to **initialize and close a database** connection:
 ```python
 @pytest.fixture()
 def demodata():
@@ -92,7 +92,7 @@ def test_some_data(demodata):
     assert demodata == 'demodata'
 ```
 
-Sharing Fixtures among multiple files: define fixture in the conftext.py file to make it available in this directory and all subdirectories.
+Sharing Fixtures among **multiple files**: define fixture in the **conftext.py** file to make it available in this directory and all subdirectories.
 
 Fixtures with DB-connections:
 ```python
@@ -104,9 +104,13 @@ def someFixture():
     
     stopDB()
 ```
-Fixtures can be used in other fixtures. Also multiple fixtures can be used.
+Fixtures can be used by other fixtures. Also multiple fixtures can be used.
 
-
+The **Scope** of a fixture can be definded additionaly:
+```@pytest.fixture(scope='function')``` Runs once per each test function (**default**)
+```@pytest.fixture(scope='class')``` Runs once per test class
+```@pytest.fixture(scope='module')``` Runs once per module
+```@pytest.fixture(scope='session')``` Runs once per session
 
 
 
