@@ -85,11 +85,11 @@ def test_demotest(city,code):
 Fixtures are bits of code that run **before** and **after** the tests. They can be used to **prepare sets of data** which are needed by multiple tests or to **initialize and close a database** connection:
 ```python
 @pytest.fixture()
-def demodata():
+def demofixture():
     return 'demodata'
 
-def test_some_data(demodata):
-    assert demodata == 'demodata'
+def test_some_data(demofixture):
+    assert demofixture == 'demodata'
 ```
 
 Sharing Fixtures among **multiple files**: define fixture in the **conftext.py** file to make it available in this directory and all subdirectories.
@@ -106,11 +106,36 @@ def someFixture():
 ```
 Fixtures can be used by other fixtures. Also multiple fixtures can be used.
 
-The **Scope** of a fixture can be definded additionaly:
+The **Scope** of a fixture can be definded additionaly:</br>
 ```@pytest.fixture(scope='function')``` Runs once per each test function (**default**)</br>
 ```@pytest.fixture(scope='class')``` Runs once per test class</br>
 ```@pytest.fixture(scope='module')``` Runs once per module</br>
 ```@pytest.fixture(scope='session')``` Runs once per session</br>
 
+Autouse a Fixture: ```@pytest.fixture(autouse=True)``` - Fixture gets run on every test. For example a timer function which determines the runtime of each test:</br>
+```python
+@pytest.fixture(autouse=True)
+def timerFixture():
+    start = time.time()
+    yield
+    delta = time.time() - start
+    print('\ntest duration : {:0.3} seconds'.format(delta))
+ ```
+ 
+Renaming fixtures:
+```python
+@pytest.fixture(name='fix')
+def demofixture():
+    return 'demodata'
+ ```
+ 
+Parametrizing Fixtures:
+```python
+demolist = ['string1','string2']
 
-
+@pytest.fixture(params=demolist)
+def demofixture(request):
+    return request.params
+ ```
+ 
+ 
