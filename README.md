@@ -81,7 +81,7 @@ def test_demotest(city,code):
   assert code == 8050
 ```
 
-#### Fixtures
+### Fixtures
 Fixtures are bits of code that run **before** and **after** the tests. They can be used to **prepare sets of data** which are needed by multiple tests or to **initialize and close a database** connection:
 ```python
 @pytest.fixture()
