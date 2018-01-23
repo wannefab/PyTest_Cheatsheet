@@ -107,10 +107,10 @@ def someFixture():
 Fixtures can be used by other fixtures. Also multiple fixtures can be used.
 
 The **Scope** of a fixture can be definded additionaly:
-```@pytest.fixture(scope='function')``` Runs once per each test function (**default**)
-```@pytest.fixture(scope='class')``` Runs once per test class
-```@pytest.fixture(scope='module')``` Runs once per module
-```@pytest.fixture(scope='session')``` Runs once per session
+```@pytest.fixture(scope='function')``` Runs once per each test function (**default**)</br>
+```@pytest.fixture(scope='class')``` Runs once per test class</br>
+```@pytest.fixture(scope='module')``` Runs once per module</br>
+```@pytest.fixture(scope='session')``` Runs once per session</br>
 
 
 
