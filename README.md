@@ -137,5 +137,35 @@ demolist = ['string1','string2']
 def demofixture(request):
     return request.params
  ```
+ #### tempdir and tempdir_factory
+ These fixures are used to create and delete temporary directories and files used by tests. Tempdir has a function scope:
+ ```python
+def test_tmpdir(tmpdir):
+    a_file = tmpdir.join('some_file.txt')
+    sub_dir = tmpdir.mkdir('some_sub_dir')
+    another_file = a_sub_dir.join('someother_file.txt')
+    
+    a_file.write('we write to some_file')
+    another_file.write('we write to someother_file')
+    
+    assert a_file.read() == 'we write to some_file'
+    assert another_file.read() == 'we write to someother_file'
+ ```
+ 
+ Tempdir_factory has a session scope:
+  ```python
+def test_tmpdir(tmpdir_factory):
+    a_dir = tmpdir_factory.mktemp('some_dir')
+
+    a_file = a_dir.join('some_file.txt')
+    sub_dir = a_dir.mkdir('some_sub_dir')
+    another_file = a_sub_dir.join('someother_file.txt')
+    
+    a_file.write('we write to some_file')
+    another_file.write('we write to someother_file')
+    
+    assert a_file.read() == 'we write to some_file'
+    assert another_file.read() == 'we write to someother_file'
+ ```
  
  
