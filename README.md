@@ -15,7 +15,7 @@ def test_demotest():
 
 ``` -k 'test_demotest' ``` Runs all tests whose names contain 'test_demotest'</br>
 ``` -m 'demomarker and not othermarker' ``` Runs all tests marked with "demomarker" which do not have a "othermarker" on them </br>
-``` -x ``` Exits on forst error </br>
+``` -x ``` Exits on first error </br>
 ``` --maxfail=2 ``` Exits after 2 errors </br>
 ``` --lf ``` Reruns only **l**ast **f**ailed test </br>
 ``` --ff ``` Reruns the **l**ast **f**ailed tests first </br>
@@ -25,11 +25,11 @@ def test_demotest():
 ``` --collect-only ``` Collects tests, but does not execute them (to check if the options are set right) </br>
 ``` -h ``` Shows help </br>
 
-``` --tb=long ```  The default traceback formatting
-``` --tb=native ```  The Python standard library formatting
-``` --tb=short ```  A shorter traceback format
-``` --tb=line ```  Only one line per failure
-``` --tb=no ```  No tracebak output
+``` --tb=long ```  The default traceback formatting </br>
+``` --tb=native ```  The Python standard library formatting </br>
+``` --tb=short ```  A shorter traceback format </br>
+``` --tb=line ```  Only one line per failure </br>
+``` --tb=no ```  No tracebak output </br>
 
 
 ### Marking
@@ -96,7 +96,9 @@ def demofixture():
 
 def test_some_data(demofixture):
     assert demofixture == 'demodata'
+    assert demofixture == 'demodat', 'some failure text'
 ```
+The failuretext is especially useful if used with ``` --tb=line ```
 
 Sharing Fixtures among **multiple files**: define fixture in the **conftext.py** file to make it available in this directory and all subdirectories.
 
