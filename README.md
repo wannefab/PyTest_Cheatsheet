@@ -25,6 +25,12 @@ def test_demotest():
 ``` --collect-only ``` Collects tests, but does not execute them (to check if the options are set right) </br>
 ``` -h ``` Shows help </br>
 
+``` --tb=long ```  The default traceback formatting
+``` --tb=native ```  The Python standard library formatting
+``` --tb=short ```  A shorter traceback format
+``` --tb=line ```  Only one line per failure
+``` --tb=no ```  No tracebak output
+
 
 ### Marking
 
