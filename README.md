@@ -9,7 +9,9 @@ def test_demotest():
   assert 2>=1
   somelist = [1, 2]
   assert 1 in somelist
+  assert False, 'This test failed because it had to...'
 ```
+The failuretext is especially useful if used with ``` --tb=line ```
 
 ### Options
 
@@ -96,9 +98,7 @@ def demofixture():
 
 def test_some_data(demofixture):
     assert demofixture == 'demodata'
-    assert demofixture == 'demodat', 'some failure text'
 ```
-The failuretext is especially useful if used with ``` --tb=line ```
 
 Sharing Fixtures among **multiple files**: define fixture in the **conftext.py** file to make it available in this directory and all subdirectories.
 
