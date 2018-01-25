@@ -13,6 +13,18 @@ def test_demotest():
 ```
 The failuretext is especially useful if used with ``` --tb=line ```
 
+**Assertion of Errors:**
+```python
+import pytest
+
+def add(a,b):
+    return a+b
+
+def test_raises():
+    with pytest.raises(TypeError):
+        add("a", 1)
+```
+
 ### Options
 
 ``` -k 'test_demotest' ``` Runs all tests whose names contain 'test_demotest'</br>
