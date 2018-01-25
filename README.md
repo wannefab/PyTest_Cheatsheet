@@ -51,11 +51,29 @@ def test_raises():
 #### Custom Marker
 
 ```python
+import pytest
 @pytest.mark.demomarker
 def test_demotest():
   assert True
 ```
 Running the test with ``` -m 'demomarker' ``` will only execute tests which have the ```@pytest.mark.demomarker```-Marker
+
+**Registering Markers**
+Markers can be registered to avoid typos. If this is not done, pytest will assume that the marker with a typo is just another marker. To do this the markers need to be added to the pytest.ini file.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+pytest.init:
+```
+[pytest]
+markers = 
+  demomarker: runs the functions with the demomarker 
+```
+In order to force the usage of only registered markers the option ```--strict``` needs to be used to run the tests
+```python
+import pytest
+@pytest.mark.demomarkers # <- typo
+def test_demotest():
+  assert True
+```
 
 #### Skipping Test
 Skipps test and shows reason when using the verbose ```-v``` option for the output:
