@@ -145,9 +145,9 @@ demolist = ['string1','string2']
 def demofixture(request):
     return request.params
  ```
- #### tempdir and tempdir_factory
- These fixures are used to create and delete temporary directories and files used by tests. Tempdir has a function scope:
- ```python
+#### Tempdir and tempdir_factory
+These fixures are used to create and delete temporary directories and files used by tests. Tempdir has a function scope:
+```python
 def test_tmpdir(tmpdir):
     a_file = tmpdir.join('some_file.txt')
     sub_dir = tmpdir.mkdir('some_sub_dir')
@@ -159,23 +159,74 @@ def test_tmpdir(tmpdir):
     assert a_file.read() == 'we write to some_file'
     assert another_file.read() == 'we write to someother_file'
  ```
- 
- Tempdir_factory has a session scope:
-  ```python
-def test_tmpdir(tmpdir_factory):
-    a_dir = tmpdir_factory.mktemp('some_dir')
 
-    a_file = a_dir.join('some_file.txt')
-    sub_dir = a_dir.mkdir('some_sub_dir')
-    another_file = a_sub_dir.join('someother_file.txt')
+Tempdir_factory has a session scope:
+```python
+def test_tmpdir(tmpdir_factory):
+  a_dir = tmpdir_factory.mktemp('some_dir')
+
+  a_file = a_dir.join('some_file.txt')
+  sub_dir = a_dir.mkdir('some_sub_dir')
+  another_file = a_sub_dir.join('someother_file.txt')
+
+  a_file.write('we write to some_file')
+  another_file.write('we write to someother_file')
+
+  assert a_file.read() == 'we write to some_file'
+  assert another_file.read() == 'we write to someother_file'
+```
+ 
+#### Cache
+The cache fixtures used to save results from one test for another or saving results from the previous run (for example to compare the runtimes from the current run to the last run.
+  
+```python
+cache.get(key, default)
+cache.set(key, value)
+```
+ 
+#### Capsys
+Used to get stdout and stderr messages to assert.
+   
+```python
+import sys
+
+def makeErr(problem):
+    print('Error happend: {}'.format(problem), file=sys.stderr)
     
-    a_file.write('we write to some_file')
-    another_file.write('we write to someother_file')
-    
-    assert a_file.read() == 'we write to some_file'
-    assert another_file.read() == 'we write to someother_file'
- ```
- 
- 
- 
- 
+
+def test_out(capsys):
+    print("Message")
+    out, err = capsys.readouterr()
+    assert 'Message' in out
+    assert err == ''
+
+def test_err(capsys):
+    makeErr('Errormessage')
+    out, err = capsys.readouterr()
+    assert out == ''
+    assert 'Errormessage' in err
+
+def test_capsys_disabled(capsys):
+    with capsys.disabled():
+        print('\nalways print this')
+```
+
+#### [Monkeypatch](https://docs.pytest.org/en/latest/monkeypatch.html)
+Monkeypatch allows the modification of classes during runtime.
+
+#### Recwarn
+Recwarn is to assert warning messages.
+```python
+import warnings
+
+def warn_function():
+    warnings.warn("Please stop using this", DeprecationWarning)
+
+def test_lame_function(recwarn):
+    warn_function()
+    assert len(recwarn) == 1
+    warning = recwarn.pop()
+    assert warning.category == DeprecationWarning
+    assert str(warning.message) == 'Please stop using this'
+```
+
